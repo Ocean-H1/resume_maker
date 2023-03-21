@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    LoadingCom: typeof import('./components/Loading/LoadingCom.vue')['default']
     LoginDialog: typeof import('./components/LoginDialog/LoginDialog.vue')['default']
     LogoCom: typeof import('./components/LogoCom/LogoCom.vue')['default']
     NavBar: typeof import('./components/NavBar/NavBar.vue')['default']

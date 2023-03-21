@@ -1,6 +1,12 @@
 <template>
   <div class="logo" @click="toHome">
-    <img src="@/assets/images/91huajian-caise.svg" alt="logo" />
+    <svg-icon
+      icon-name="icon-huojian"
+      class-name="bilibili"
+      :color="iconColor"
+      size="25px"
+    ></svg-icon>
+    <span>Resume Maker</span>
   </div>
 </template>
 

@@ -72,6 +72,7 @@
 
 <script setup lang="ts">
   import appStore from '@/store';
+  import LoginDialog from '@/components/LoginDialog/LoginDialog';
 
   interface IBgcColor {
     fontColor?: string;
@@ -178,15 +179,15 @@
     console.log(currentMenu.value);
   };
   const nameColor = computed(() => {
-    return props.fontColor ? '#2ddd9d' : 'green'
-  })
+    return props.fontColor ? '#2ddd9d' : 'green';
+  });
   // 打开注册弹窗
   const openRegisterDialog = () => {
-    console.log('打开注册弹窗');
+    LoginDialog(false);
   };
   // 打开登录弹窗
   const openLoginDialog = () => {
-    console.log('打开登录弹窗');
+    LoginDialog(true);
   };
   // 跳转至个人中心
   const toProfile = () => {

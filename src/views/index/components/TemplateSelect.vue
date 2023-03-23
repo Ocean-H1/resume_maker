@@ -87,4 +87,51 @@
   });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+  .template-select-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .card-list {
+      display: flex;
+      flex-wrap: wrap;
+      width: 1400px;
+      justify-content: space-between;
+      .card-list-item-box {
+        flex: 0 0 25%;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .more {
+      padding: 0 0 40px 0;
+      .button {
+        width: 120px;
+        height: 38px;
+        line-height: 38px;
+        text-align: center;
+        letter-spacing: 2px;
+        color: #fff;
+        font-size: 14px;
+        background-image: -webkit-linear-gradient(to right, #2ddd9d, #1cc7cf);
+        background-image: -moz-linear-gradient(to right, #2ddd9d, #1cc7cf);
+        background-image: -ms-linear-gradient(to right, #2ddd9d, #1cc7cf);
+        background-image: linear-gradient(to right, #2ddd9d, #1cc7cf);
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+        background-color: #2ddd9d;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+        cursor: pointer;
+        user-select: none;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+</style>

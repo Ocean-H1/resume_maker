@@ -2,12 +2,15 @@ import { useLoadingStore } from './loading';
 import { useRefreshStore } from './refresh';
 import { useTokenStore } from './token';
 import { useUserInfoStore } from './user';
+import { useResumeJsonNewStore, useSelectMaterialStore } from './resume';
 
 export interface IAppStore {
   useUserInfoStore: ReturnType<typeof useUserInfoStore>;
   useTokenStore: ReturnType<typeof useTokenStore>;
   useRefreshStore: ReturnType<typeof useRefreshStore>;
   useLoadingStore: ReturnType<typeof useLoadingStore>;
+  useResumeJsonNewStore: ReturnType<typeof useResumeJsonNewStore>;
+  useSelectMaterialStore: ReturnType<typeof useSelectMaterialStore>;
 }
 const appStore: IAppStore = {} as IAppStore;
 /**
@@ -20,6 +23,8 @@ export const registerStore = () => {
   appStore.useTokenStore = useTokenStore();
   appStore.useRefreshStore = useRefreshStore();
   appStore.useLoadingStore = useLoadingStore();
+  appStore.useResumeJsonNewStore = useResumeJsonNewStore();
+  appStore.useSelectMaterialStore = useSelectMaterialStore();
 };
 
 export default appStore;

@@ -11,7 +11,7 @@
       ></project-introduce>
     </div>
     <!-- 模板选择 -->
-    <div ref="templateRef"></div>
+    <template-select ref="templateRef"></template-select>
     <!-- 自定义模板 -->
     <div ref="customTemplateRef"></div>
     <!-- 成为赞助者 -->
@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
   import ProjectIntroduce from './components/ProjectIntroduce.vue';
+  import TemplateSelect from './components/TemplateSelect.vue'
   import { throttle } from 'lodash';
 
   // 监听元素滚动

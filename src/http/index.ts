@@ -1,4 +1,3 @@
-import qs, { stringify } from 'qs';
 import axios, { AxiosResponse } from 'axios';
 import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import type { RequestInterceptors, CancelRequestSource, RequestConfig } from './types/types';

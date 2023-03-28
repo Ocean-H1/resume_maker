@@ -13,9 +13,10 @@
     <!-- 模板选择 -->
     <template-select ref="templateRef"></template-select>
     <!-- 自定义模板 -->
-    <div ref="customTemplateRef"></div>
+    <CustomTemplate ref="customTemplateRef"></CustomTemplate>
     <!-- 成为赞助者 -->
-    <div ref="sponsorRefs"></div>
+    <SponsorComVue ref="sponsorRefs"></SponsorComVue>
+
     <!-- 网站相关数据 -->
     <!-- footer -->
     <!-- 回到顶部 -->
@@ -26,7 +27,9 @@
 
 <script setup lang="ts">
   import ProjectIntroduce from './components/ProjectIntroduce.vue';
-  import TemplateSelect from './components/TemplateSelect.vue'
+  import TemplateSelect from './components/TemplateSelect.vue';
+  import CustomTemplate from './components/CustomTemplate.vue';
+  import SponsorComVue from './components/SponsorCom.vue';
   import { throttle } from 'lodash';
 
   // 监听元素滚动

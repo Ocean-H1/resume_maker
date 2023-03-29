@@ -19,6 +19,7 @@
     <!-- 网站相关数据 -->
     <WebData></WebData>
     <!-- footer -->
+    <FooterCom></FooterCom>
     <!-- 回到顶部 -->
     <!-- 联系我 -->
     <!-- Github卡片 -->
@@ -26,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+  import FooterCom from '@/components/FooterCom/FooterCom.vue'
   import WebData from './components/WebData.vue';
   import ProjectIntroduce from './components/ProjectIntroduce.vue';
   import TemplateSelect from './components/TemplateSelect.vue';

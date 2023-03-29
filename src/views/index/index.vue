@@ -21,13 +21,35 @@
     <!-- footer -->
     <FooterCom></FooterCom>
     <!-- 回到顶部 -->
+    <el-backtop :bottom="100">
+      <div
+        style="
+          height: 100%;
+          width: 100%;
+          background-color: var(--el-bg-color-overlay);
+          box-shadow: var(--el-box-shadow-lighter);
+          text-align: center;
+          line-height: 40px;
+          color: #1989fa;
+          user-select: none;
+          border-radius: 50%;
+          font-size: 14px;
+        "
+      >
+        UP ↑
+      </div>
+    </el-backtop>
     <!-- 联系我 -->
+    <CallMe></CallMe>
     <!-- Github卡片 -->
+    <GithubCard></GithubCard>
   </div>
 </template>
 
 <script setup lang="ts">
-  import FooterCom from '@/components/FooterCom/FooterCom.vue'
+  import GithubCard from '@/components/GithubCard/GithubCard.vue';
+  import CallMe from './components/CallMe.vue';
+  import FooterCom from '@/components/FooterCom/FooterCom.vue';
   import WebData from './components/WebData.vue';
   import ProjectIntroduce from './components/ProjectIntroduce.vue';
   import TemplateSelect from './components/TemplateSelect.vue';

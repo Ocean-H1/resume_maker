@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDialog: typeof import('element-plus/es')['ElDialog']
@@ -24,8 +25,10 @@ declare module '@vue/runtime-core' {
     ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
     ElSkeletonItem: typeof import('element-plus/es')['ElSkeletonItem']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     FooterCom: typeof import('./components/FooterCom/FooterCom.vue')['default']
+    GithubCard: typeof import('./components/GithubCard/GithubCard.vue')['default']
     LoadingCom: typeof import('./components/Loading/LoadingCom.vue')['default']
     LoginDialog: typeof import('./components/LoginDialog/LoginDialog.vue')['default']
     LogoCom: typeof import('./components/LogoCom/LogoCom.vue')['default']

@@ -16,8 +16,8 @@
     <CustomTemplate ref="customTemplateRef"></CustomTemplate>
     <!-- 成为赞助者 -->
     <SponsorComVue ref="sponsorRefs"></SponsorComVue>
-
     <!-- 网站相关数据 -->
+    <WebData></WebData>
     <!-- footer -->
     <!-- 回到顶部 -->
     <!-- 联系我 -->
@@ -26,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+  import WebData from './components/WebData.vue';
   import ProjectIntroduce from './components/ProjectIntroduce.vue';
   import TemplateSelect from './components/TemplateSelect.vue';
   import CustomTemplate from './components/CustomTemplate.vue';

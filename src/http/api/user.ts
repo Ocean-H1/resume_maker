@@ -38,3 +38,11 @@ export const getUserInfoAsync: any = (email: string) => {
     method: 'get'
   });
 };
+
+// 获取网站分析数据
+export const getWebAnalycDataAsync: any = () => {
+  return http.request({
+    url: '/huajian/common/getWebAnalycData',
+    method: 'get'
+  });
+};

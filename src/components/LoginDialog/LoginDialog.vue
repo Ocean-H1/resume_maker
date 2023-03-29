@@ -270,7 +270,7 @@
     await formEl.validate(async (valid, fields) => {
       if (valid) {
         isLoginLoading.value = true;
-        const data = await loginAsync(loginForm);
+        const data = await loginAsync(loginForm); 
         if (data.status === 200) {
           isLoginLoading.value = false;
           let emailVerify = data.data.user.auth.email.valid;

@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import qs from 'qs';
 import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 import type { RequestInterceptors, CancelRequestSource, RequestConfig } from './types/types';
 
@@ -104,7 +105,7 @@ class Request {
       // 序列化
       if (config.method === 'post' && config.headers['Content-Type'] !== 'application/json') {
         // 序列化post参数
-        config.data = JSON.stringify(config.data);
+        config.data = qs.stringify(config.data);
       }
       // 设置token
       if (localStorage.getItem('token')) {

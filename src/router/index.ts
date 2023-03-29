@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-const Index = import('@/views/index/index.vue');
+const Index = () => import('@/views/index/index.vue');
+const Person = () => import('@/views/person/index.vue');
+const PersonDetail = () => import('@/views/person/personDetail/index.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,6 +15,32 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: false
     },
     component: Index
+  },
+  {
+    path: '/person',
+    name: 'Person',
+    redirect: '/person/personDetail',
+    meta: {
+      title: '个人中心',
+      keepAlive: true,
+      isShowComNav: true,
+      requireLogin: true
+    },
+    component: Person,
+    children: [
+      {
+        path: 'personDetail',
+        name: 'personDetail',
+        meta: {
+          title: '个人信息',
+          keepAlive: true,
+          isShowComNav: true,
+          requireLogin: true,
+          showTitle: true
+        },
+        component: PersonDetail
+      }
+    ]
   }
 ];
 const router = createRouter({

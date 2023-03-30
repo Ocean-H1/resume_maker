@@ -3,7 +3,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const Index = () => import('@/views/index/index.vue');
 const Person = () => import('@/views/person/index.vue');
 const PersonDetail = () => import('@/views/person/personDetail/index.vue');
-const AccountSetting = () => import('@/views/person/accountSetting/index.vue')
+const AccountSetting = () => import('@/views/person/accountSetting/index.vue');
+const MyComment = () => import('@/views/person/myComment/index.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -52,6 +53,18 @@ const routes: Array<RouteRecordRaw> = [
           showTitle: true
         },
         component: AccountSetting
+      },
+      {
+        path: 'myComment',
+        name: 'MyComment',
+        meta: {
+          title: '我的评论',
+          keepAlive: true,
+          isShowComNav: true,
+          requireLogin: true,
+          showTitle: true
+        },
+        component: MyComment
       }
     ]
   }

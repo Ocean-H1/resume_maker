@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const Index = () => import('@/views/index/index.vue');
 const Person = () => import('@/views/person/index.vue');
 const PersonDetail = () => import('@/views/person/personDetail/index.vue');
+const AccountSetting = () => import('@/views/person/accountSetting/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -39,6 +40,18 @@ const routes: Array<RouteRecordRaw> = [
           showTitle: true
         },
         component: PersonDetail
+      },
+      {
+        path: 'accountSetting',
+        name: 'AccountSetting',
+        meta: {
+          title: '账号设置',
+          keepAlive: true,
+          isShowComNav: true,
+          requireLogin: true,
+          showTitle: true
+        },
+        component: AccountSetting
       }
     ]
   }

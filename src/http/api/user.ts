@@ -47,19 +47,31 @@ export const getWebAnalycDataAsync: any = () => {
   });
 };
 // 修改用户头像
-export const updateUserAvatarAsync: any = (data:any) => {
+export const updateUserAvatarAsync: any = (data: any) => {
   return http.request({
     url: '/huajian/users/updateAvatar',
     method: 'put',
     data: data
-  })
-}
+  });
+};
 
 // 更新用户个人信息
-export const updatePersonInfoAsync:any = (data:any) => {
+export const updatePersonInfoAsync: any = (data: any) => {
   return http.request({
     url: '/huajian/users/updatePersonInfo',
     method: 'put',
     data: data
-  })
-}
+  });
+};
+
+// 重置密码
+export const resetPasswordAsync: any = (data: any) => {
+  return http.request({
+    url: '/huajian/auth/email/reset-password',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: data
+  });
+};

@@ -75,3 +75,11 @@ export const resetPasswordAsync: any = (data: any) => {
     data: data
   });
 };
+
+// 忘记密码->发送重置密码邮件
+export const forgetPasswordAsync: any = (email: string) => {
+  return http.request({
+    url: `/huajian/auth/email/forgot-password/${email}`,
+    method: 'get'
+  });
+};

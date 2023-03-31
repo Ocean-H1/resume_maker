@@ -9,7 +9,8 @@ const AccountSetting = () => import('@/views/person/accountSetting/index.vue');
 const MyComment = () => import('@/views/person/myComment/index.vue');
 const MyResume = () => import('@/views/person/myResume/index.vue');
 const MyOnlineResume = () => import('@/views/person/onlineResume/index.vue');
-const MyContribute = () => import('@/views/person/myContribute/index.vue')
+const MyContribute = () => import('@/views/person/myContribute/index.vue');
+const ForgetPassword = () => import('@/views/forgetPassword/index.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -108,6 +109,17 @@ const routes: Array<RouteRecordRaw> = [
         component: MyContribute
       }
     ]
+  },
+  {
+    path: '/forgetPassword',
+    name: 'ForgetPassword',
+    meta: {
+      title: '忘记密码',
+      keepAlive: false,
+      isShowComNav: true,
+      requireLogin: false
+    },
+    component: ForgetPassword
   }
 ];
 const router = createRouter({

@@ -1,25 +1,28 @@
 <template>
   <div class="my-comment-box">
-    <template v-if="myCommentList.length">
-      <div class="comment-card-box" v-for="(item, index) in myCommentList" :key="index">
-        <div class="card-left">
-          <div class="date">{{ formatListDate(item.createDate) }}</div>
-          <p v-dompurify-html="item.content" :title="item.content" @click="toDetail(item)"></p>
-          <div class="comment-likes">
-            <svg-icon icon-name="icon-dianzan1" color="#a3abb1" size="16px"></svg-icon>
-            <span class="number">{{ item.like }}</span>
+    <div v-if="!isShowSkeleton">
+      <template v-if="myCommentList.length">
+        <div class="comment-card-box" v-for="(item, index) in myCommentList" :key="index">
+          <div class="card-left">
+            <div class="date">{{ formatListDate(item.createDate) }}</div>
+            <p v-dompurify-html="item.content" :title="item.content" @click="toDetail(item)"></p>
+            <div class="comment-likes">
+              <svg-icon icon-name="icon-dianzan1" color="#a3abb1" size="16px"></svg-icon>
+              <span class="number">{{ item.like }}</span>
+            </div>
+          </div>
+          <div class="card-right" title="删除评论" @click="remove(item)">
+            <svg-icon icon-name="icon-shanchu1" color="#a3abb1" size="26px"></svg-icon>
           </div>
         </div>
-        <div class="card-right" title="删除评论" @click="remove(item)">
-          <svg-icon icon-name="icon-shanchu1" color="#a3abb1" size="26px"></svg-icon>
-        </div>
-      </div>
-    </template>
+      </template>
 
-    <!-- 无数据页 -->
-    <template v-else>
-      <NoData width="200px" height="200px"></NoData>
-    </template>
+      <!-- 无数据页 -->
+      <template v-else>
+        <NoData width="200px" height="200px"></NoData>
+      </template>
+    </div>
+    <el-skeleton v-else :rows="8" animated />
     <!-- 分页组件 -->
     <Pagination
       v-if="total > limit"
@@ -54,7 +57,7 @@
       limit: limit.value
     };
     const data = await getPersonCommentPageAsync(params);
-    if (data.data.status === 200) {
+    if (data.status === 200) {
       myCommentList.value = data.data.data.list;
       total.value = data.data.data.page.count;
       currentPage.value = data.data.data.page.currentPage;

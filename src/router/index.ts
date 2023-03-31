@@ -7,6 +7,7 @@ const Person = () => import('@/views/person/index.vue');
 const PersonDetail = () => import('@/views/person/personDetail/index.vue');
 const AccountSetting = () => import('@/views/person/accountSetting/index.vue');
 const MyComment = () => import('@/views/person/myComment/index.vue');
+const MyResume = () => import('@/views/person/myResume/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -67,6 +68,18 @@ const routes: Array<RouteRecordRaw> = [
           showTitle: true
         },
         component: MyComment
+      },
+      {
+        path: 'myResume',
+        name: 'MyResume',
+        meta: {
+          title: '我的简历',
+          keepAlive: true,
+          isShowComNav: true,
+          requireLogin: true,
+          showTitle: true
+        },
+        component: MyResume
       }
     ]
   }

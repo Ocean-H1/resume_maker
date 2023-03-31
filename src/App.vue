@@ -24,6 +24,13 @@
   const { isLoading } = storeToRefs(appStore.useLoadingStore);
   const route = useRoute();
   const { refreshUuid } = appStore.useRefreshStore;
+
+  // 查询和更新用户信息
+  const { getAndUpdateUserInfo } = appStore.useUserInfoStore;
+  const { token } = appStore.useTokenStore;
+  if (token) {
+    getAndUpdateUserInfo();
+  }
 </script>
 
 <style scoped></style>

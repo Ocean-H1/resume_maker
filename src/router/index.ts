@@ -9,6 +9,7 @@ const AccountSetting = () => import('@/views/person/accountSetting/index.vue');
 const MyComment = () => import('@/views/person/myComment/index.vue');
 const MyResume = () => import('@/views/person/myResume/index.vue');
 const MyOnlineResume = () => import('@/views/person/onlineResume/index.vue');
+const MyContribute = () => import('@/views/person/myContribute/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -93,6 +94,18 @@ const routes: Array<RouteRecordRaw> = [
           showTitle: true
         },
         component: MyOnlineResume
+      },
+      {
+        path: 'myContribute',
+        name: 'MyContribute',
+        meta: {
+          title: '我的贡献',
+          keepAlive: true,
+          isShowComNav: true,
+          requireLogin: true,
+          showTitle: false
+        },
+        component: MyContribute
       }
     ]
   }

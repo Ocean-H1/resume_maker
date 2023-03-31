@@ -34,3 +34,12 @@ export const updateOnlineResumeAsync: any = (data: any) => {
     data: data
   });
 };
+
+// 查询自己贡献的模板列表
+export const getMyContributeTemplateListAsync:any = (params: any) => {
+  return http.request({
+    url: '/huajian/resume/getMyContributeTemplateList',
+    method: 'get',
+    params: params
+  })
+}

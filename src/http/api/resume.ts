@@ -19,9 +19,18 @@ export const getUserResumeListAsync: any = (params: any) => {
 };
 
 // 用户删除自己的简历
-export const deleteUserResumeAsync:any  = (id:string) => {
+export const deleteUserResumeAsync: any = (id: string) => {
   return http.request({
     url: `/huajian/userresume/deleteResume/${id}`,
     method: 'delete'
-  })
-}
+  });
+};
+
+// 更新在线简历设置
+export const updateOnlineResumeAsync: any = (data: any) => {
+  return http.request({
+    url: '/huajian/userresume/updateOnlineResume',
+    method: 'put',
+    data: data
+  });
+};

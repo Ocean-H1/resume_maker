@@ -7,7 +7,8 @@ const Person = () => import('@/views/person/index.vue');
 const PersonDetail = () => import('@/views/person/personDetail/index.vue');
 const AccountSetting = () => import('@/views/person/accountSetting/index.vue');
 const MyComment = () => import('@/views/person/myComment/index.vue');
-const MyResume = () => import('@/views/person/myResume/index.vue')
+const MyResume = () => import('@/views/person/myResume/index.vue');
+const MyOnlineResume = () => import('@/views/person/onlineResume/index.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,9 +16,9 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Index',
     meta: {
       title: '首页',
-      keepAlive: true,
+      keepAlive: true, //  是否需要保存状态
       isShowComNav: false, // 是否显示公共的导航栏
-      requireLogin: false
+      requireLogin: false // 是否需要登录
     },
     component: Index
   },
@@ -80,6 +81,18 @@ const routes: Array<RouteRecordRaw> = [
           showTitle: true
         },
         component: MyResume
+      },
+      {
+        path: 'myOnlineResume',
+        name: 'MyOnlineResume',
+        meta: {
+          title: '在线简历',
+          keepAlive: true,
+          isShowComNav: true,
+          requireLogin: true,
+          showTitle: true
+        },
+        component: MyOnlineResume
       }
     ]
   }
@@ -88,6 +101,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 });
+
 // 全局守卫：登录拦截 本地没有存token,请重新登录
 router.beforeEach((to, from, next) => {
   console.log(to, from);
@@ -120,4 +134,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
 export default router;

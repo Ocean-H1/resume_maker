@@ -3,12 +3,12 @@
     <!-- 简历列表 -->
     <div v-if="!isShowSkeleton" class="resume-list">
       <template v-for="(item, index) in templateList" :key="index">
-        <ResumeCard :card-data="item" @delete="deleteUserResume"></ResumeCard>
+        <ResumeCard :card-data="item" @update-success="updateSuccess"></ResumeCard>
       </template>
       <!-- 无数据页 -->
       <NoData v-if="!templateList.length" width="200px" height="200px"></NoData>
     </div>
-    <el-skeleton v-else :rows="8" animated />
+    <el-skeleton v-else :rows="8" animated/>
     <!-- 分页组件 -->
     <Pagination
       v-if="total > limit"
@@ -21,23 +21,24 @@
 </template>
 
 <script setup lang="ts">
-  import ResumeCard from './components/ResumeCard.vue';
-  import { getUserResumeListAsync, deleteUserResumeAsync } from '@/http/api/resume';
-  import NoData from '@/components/NoData/NoData.vue';
   import Pagination from '@/components/Pagination/pagination.vue';
+  import { getUserResumeListAsync } from '@/http/api/resume';
+  import ResumeCard from './components/ResumeCard.vue';
+  import NoData from '@/components/NoData/NoData.vue';
 
   // 获取用户简历列表
-  const isShowSkeleton = ref<boolean>(true);
   const templateList = ref<any>([]);
   const page = ref<number>(1);
   const limit = ref<number>(6);
   const total = ref<number>(0);
   const currentPage = ref<number>(1);
+  const isShowSkeleton = ref<boolean>(true);
   const getUserResumeList = async () => {
     isShowSkeleton.value = true;
     const params = {
       page: page.value,
-      limit: limit.value
+      limit: limit.value,
+      isOnline: true
     };
     const data = await getUserResumeListAsync(params);
     if (data.data.status === 200) {
@@ -51,20 +52,12 @@
   };
   getUserResumeList();
 
-  // 点击删除简历
-  const deleteUserResume = async (id: string) => {
-    const data = await deleteUserResumeAsync(id);
-    if (data.data.status === 200) {
-      ElMessage.success('删除成功!');
-      page.value = 1;
-      currentPage.value = 1;
-      getUserResumeList();
-    } else {
-      ElMessage.error(data.data.message);
-    }
+  // 设置更新成功
+  const updateSuccess = () => {
+    getUserResumeList();
   };
 
-  // 页码改变时触发
+  // 改变页码时触发
   const handleCurrentChange = (currentPage: number) => {
     page.value = currentPage;
     getUserResumeList();

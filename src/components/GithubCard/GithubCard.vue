@@ -20,7 +20,7 @@
         <p class="tips">开源不易，点个star再走呗~~</p>
       </div>
       <button class="button-box">
-        <a href="https://github.com/Ocean-H1/resume_design_mine" target="_blank">star</a>
+        <a href="https://github.com/Ocean-H1/resume_maker" target="_blank">star</a>
       </button>
     </div>
   </div>

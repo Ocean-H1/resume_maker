@@ -11,6 +11,7 @@ const MyResume = () => import('@/views/person/myResume/index.vue');
 const MyOnlineResume = () => import('@/views/person/onlineResume/index.vue');
 const MyContribute = () => import('@/views/person/myContribute/index.vue');
 const ForgetPassword = () => import('@/views/forgetPassword/index.vue');
+const Designer = () => import('@/views/designer/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -120,6 +121,17 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: false
     },
     component: ForgetPassword
+  },
+  {
+    path: '/designer',
+    name: 'Designer',
+    meta: {
+      title: '设计',
+      keepAlive: true,
+      isShowComNav: false,
+      requireLogin: true
+    },
+    component: Designer
   }
 ];
 const router = createRouter({

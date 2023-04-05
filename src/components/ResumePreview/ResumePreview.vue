@@ -22,9 +22,10 @@
 <script setup lang="ts">
   import ResumePreviewCom from './components/ResumePreviewCom.vue';
   import appStore from '@/store/index';
+  import { storeToRefs } from 'pinia';
 
-  const { refreshUuid } = appStore.useRefreshStore;
-  const { resumeJsonNewStore } = appStore.useResumeJsonNewStore; //  获得store中的模板数据
+  const { refreshUuid } = storeToRefs(appStore.useRefreshStore);
+  const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); //  获得store中的模板数据
 
   // 监听元素高度变化->绘制分割线
   const htmlContentPdf = ref<any>(null);

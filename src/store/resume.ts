@@ -36,7 +36,7 @@ export const useResumeJsonNewStore = defineStore('resumeJsonNew', () => {
 export const useSelectMaterialStore = defineStore('selectMaterialStore', () => {
   const cptName = ref<string>(''); // 选中的模块名称
   const cptOptionsName = ref<string>(''); // 选中的组件属性面板名称
-  const cptTitle = ref<string>('全局主题设置'); // 选中的模块名称
+  const cptTitle = ref<string>('全局主题设置'); // 选中的模块标题
   const cptKeyId = ref<string>(''); // 选中的模块KeyID
 
   // 更新

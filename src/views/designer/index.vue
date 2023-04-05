@@ -8,21 +8,85 @@
       @reset="reset"
     ></DesignNav>
     <!-- 内容区 -->
+    <div class="bottom">
+      <!-- 左侧添加模块区 -->
+      <div class="left" ref="leftRef">
+        <c-scrollbar trigger="hover">
+          <Title show-collapse @unfold-or-collapse="unfoldOrCollapse"></Title>
+          <ModelList :key="refreshUuid" :left-show-status="leftShowStatus"></ModelList>
+        </c-scrollbar>
+      </div>
+      <!-- 效果预览区 -->
+      <div class="center" id="print">
+        <!-- 放大缩小组件 -->
+        <zoom-and-out @add-size="addSize" @reduce-size="reduceSize"></zoom-and-out>
+        <component :is="resumeBackgroundName" ref="html2Pdf" :key="refreshUuid">
+          <!-- 内容区域 -->
+          <div class="design-content" ref="htmlContentPdf">
+            <component
+              :is="custom"
+              ref="customRef"
+              @content-height-change="contentHeightChange"
+            ></component>
+          </div>
+          <!-- 分页线 -->
+          <template v-if="linesNumber > 0 && !isPrinting">
+            <div
+              v-for="(item, index) in linesNumber"
+              :ref="(el) => setLinesRef(el, index)"
+              :key="index"
+              class="lines"
+              :style="{ top: `${1158 + 1160 * index}px` }"
+            >
+              <span class="page-tips-one">第{{ index + 1 }}页</span>
+            </div>
+          </template>
+        </component>
 
+        <!-- 评论组件 -->
+        <CommentCom :comment-type-id="id" comment-type="resumeOnline"></CommentCom>
+        <!-- 回到顶部 -->
+        <el-backtop :right="365" :bottom="50" target="#print">
+          <div
+            style="
+              height: 100%;
+              width: 100%;
+              background-color: var(--el-bg-color-overlay);
+              box-shadow: var(--el-box-shadow-lighter);
+              text-align: center;
+              line-height: 40px;
+              color: #1989fa;
+              user-select: none;
+              border-radius: 50%;
+              font-size: 14px;
+            "
+          >
+            UP
+          </div>
+        </el-backtop>
+      </div>
+      <!-- 右侧属性设置面板 -->
+      <div class="config" ref="configRef" :key="refreshUuid"></div>
+    </div>
     <!-- 导出pdf进度弹窗 -->
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"> 
   import appStore from '@/store';
   import DesignNav from './components/DesignNav.vue';
   import { storeToRefs } from 'pinia';
   import IDESIGNJSON from '@/interface/design';
   import { getResetTemplateInfoAsync, getTemplateInfoAsync } from '@/http/api/resume';
+  import Title from './components/Title.vue';
+  import ModelList from './components/ModelList.vue';
+  import resumeBackgroundComponents from '@/utils/registerResumeBackgroundCom';
+  import custom from '@/template/custom/index.vue';
 
   const route = useRoute();
   const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
-  const { id } = route.query;
+  const { id } = route.query; //  模板id
+  const { refreshUuid } = storeToRefs(appStore.useRefreshStore);
 
   // 添加自定义模块时，左右布局单独处理
   const customRef = ref<any>(null);
@@ -37,7 +101,7 @@
 
   // 查询简历数据，如果存在草稿就返回，没有就相当于重置简历数据
   const { changeResumeJsonData } = appStore.useResumeJsonNewStore;
-  const { setUuid } = appStore.useRefreshStore
+  const { setUuid } = appStore.useRefreshStore;
   const resetStoreAndLocal = async (isReset = false, ID = id) => {
     let TEMPLATE_JSON: IDESIGNJSON;
     let data;
@@ -53,19 +117,93 @@
       return;
     }
     changeResumeJsonData(TEMPLATE_JSON); //  更新store中的数据
-    setUuid()
+    setUuid();
   };
   resetStoreAndLocal();
   provide('resetStoreAndLocal', resetStoreAndLocal);
 
+  // 展开或收起左侧边栏
+  const leftRef = ref<any>(null);
+  const leftShowStatus = ref<boolean>(true);
+  const unfoldOrCollapse = (status: boolean) => {
+    if (status) {
+      // 展开
+      setTimeout(() => {
+        leftShowStatus.value = status;
+      }, 100);
+      leftRef.value.style.width = '300px';
+    } else {
+      // 折叠
+      setTimeout(() => {
+        leftShowStatus.value = status;
+      }, 100);
+      leftRef.value.style.width = '70px';
+    }
+  };
+
+  // 生成要下载的PDF
+  // const dialogVisible = ref<boolean>(false);
+  // const percentage = ref<number>(10); //  导出进度
+  // let timer:any = null;
   const generateReport = async () => {};
 
+  // 另存为PDF，新的方法
+  const isPrinting = ref<boolean>(false);
   const generateReportNew = async () => {};
 
+  // 重置数据
   const reset = () => {};
 
   // 放大缩小center
   const sizeCenter = ref<number>(1);
+  const addSize = (number: number) => {
+    sizeCenter.value = number;
+  };
+  const reduceSize = (number: number) => {
+    sizeCenter.value = number;
+  };
+
+  // 返回简历背景
+  const resumeBackgroundName = computed(() => {
+    return resumeJsonNewStore.value.GLOBAL_STYLE.resumeBackgroundCom
+      ? resumeBackgroundComponents[resumeJsonNewStore.value.GLOBAL_STYLE.resumeBackgroundCom]
+      : resumeBackgroundComponents['RESUME_BACKGROUND_DEFAULT'];
+  });
+
+  // 分割线模块化ref
+  const html2Pdf = ref<any>(null);
+  let lineRefs: Array<any> = []; // 分割线的ref
+  const setLinesRef = (el: any,index: number) => {
+    if(el) {
+      if(linesNumber.value === index + 1) {
+        el.style.top = linesNumber.value * 1160 + 'px'; //  最后一条分割线出现在底部
+      }
+      lineRefs.push(el)
+    }
+  }
+  // 监听内容元素高度变化，绘制分割线
+  const htmlContentPdf = ref<any>(null);
+  const linesNumber = ref<number>(0);
+  let observer: ResizeObserver | null = null;
+  let height = 0;
+  const resizeDOM = () => {
+    observer = new ResizeObserver(async (entries: ResizeObserverEntry[]) => {
+      for (let entry of entries) {
+        height = (entry.target as HTMLElement).offsetHeight;
+        linesNumber.value = Math.ceil(height / 1160); //  计算分割线数目
+        html2Pdf.value.$el.style.height = 1160 * linesNumber.value + 'px'; //  计算整个简历的高度
+        htmlContentPdf.value.style.height = html2Pdf.value.$el.style.height;
+      }
+    });
+    observer.observe(htmlContentPdf.value);
+  };
+
+  // 子组件内容发生变化-->需要重新计算高度,触发resizeDOM
+  const contentHeightChange = async (height: number) => {
+    htmlContentPdf.value.style.height = height + 'px';
+    await nextTick();
+    resizeDOM();
+  };
 </script>
 
 <style lang="scss">
@@ -106,7 +244,6 @@
           margin: 40px auto;
           display: flex;
           position: relative;
-          zoom: v-bind('sizeCenter');
           .lines {
             z-index: 10;
             width: 820px;
@@ -132,6 +269,7 @@
             font-family: v-bind(
               'resumeJsonNewStore.GLOBAL_STYLE.fontFamily ? resumeJsonNewStore.GLOBAL_STYLE.fontFamily : "微软雅黑"'
             );
+            zoom: v-bind('sizeCenter');
           }
         }
       }

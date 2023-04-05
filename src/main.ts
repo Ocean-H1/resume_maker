@@ -28,6 +28,7 @@ import "default-passive-events";
 // 使用vue-dompurify-html代替v-html，解决可能带来的XSS攻击
 import VueDOMPurifyHTML from "vue-dompurify-html";
 
+// 注册UndrawUi组件 gitee地址: https://gitee.com/undraw/undraw-ui
 import UndrawUi from "./components/packages/index";
 // 文章样式
 import "@/style/article/github-markdown-light.css";

@@ -13,6 +13,7 @@
           :key="index"
           class="lines"
           :ref="(el) => setLinesRef(el, index)"
+          :style="{ top: `${1158 + 1160 * index}px` }"
         ></div>
       </template>
     </div>
@@ -46,7 +47,7 @@
   };
 
   // 子组件内容高度发生变化-->需要重新计算高度，触发resizeDOM
-  const contentHeightChange = async () => {
+  const contentHeightChange = async (height: number) => {
     htmlContentPdf.value.style.height = height + 'px';
     await nextTick();
     resizeDOM();

@@ -15,7 +15,7 @@
         </div>
       </el-tooltip>
       <el-tooltip class="box-item" effect="dark" content="删除当前模块">
-        <div class="delete" @click.stop="useDeleteModel(item)">
+        <div class="delete" @click.stop="delModel">
           <svg-icon
             icon-name="icon-shanchu"
             class-name="icon icon-shanchu"
@@ -44,7 +44,7 @@
   import { ComponentPublicInstance } from 'vue';
   import { useDeleteModel } from '@/hooks/useDeleteModel';
 
-  const emit = defineEmits(['leftRightAdd']);
+  const emit = defineEmits(['leftRightAdd', 'leftRightDelete']);
   const props = defineProps<{
     item: IMATERIALITEM;
     components: any;
@@ -128,6 +128,21 @@
     insert.keyId = getUuid();
     // 在当前模块后面添加复制的模块
     resumeJsonNewStore.value.COMPONENTS.splice(index, 0, insert);
+  };
+
+  // 删除当前模块
+  const delModel = () => {
+    if (resumeJsonNewStore.value.LAYOUT === 'classical') {
+      // 传统布局
+      classicalDelete();
+    } else {
+      // 左右两列布局
+      emit('leftRightDelete',props.item);
+    }
+  };
+  // 传统布局删除模块
+  const classicalDelete = () => {
+    useDeleteModel(props.item)
   };
 </script>
 

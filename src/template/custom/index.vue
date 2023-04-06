@@ -43,6 +43,7 @@
                 :components="MaterialComponents"
                 :item="element"
                 @left-right-add="leftAdd"
+                @left-right-delete="leftDelete"
               ></model-box>
             </div>
           </template>
@@ -63,6 +64,7 @@
                 :components="MaterialComponents"
                 :item="element"
                 @left-right-add="rightAdd"
+                @left-right-delete="rightDelte"
               ></model-box>
             </div>
           </template>
@@ -174,6 +176,42 @@
     insert.keyId = getUuid();
     rightList.value.splice(index, 0, insert);
     resumeJsonNewStore.COMPONENTS = leftList.value.concat(rightList.value);
+  };
+
+  // 左侧模块删除
+  const leftDelete = (modelItem: IMATERIALITEM) => {
+    let index: number = leftList.value.findIndex(
+      (item: IMATERIALITEM) => item.keyId === modelItem.keyId
+    );
+    let sum: number = 0; //  相同模块个数
+    resumeJsonNewStore.COMPONENTS.forEach((item) => {
+      if (item.model === modelItem.model) {
+        sum++;
+      }
+    });
+    if (sum > 1) {
+      leftList.value.splice(index, 1);
+    } else {
+      leftList.value[index].show = false;
+    }
+  };
+  // 右侧模块删除
+  const rightDelte = (modelItem: IMATERIALITEM) => {
+    let index: number = rightList.value.findIndex(
+      (item: IMATERIALITEM) => item.keyId === modelItem.keyId
+    );
+
+    let sum: number = 0; //  相同模块个数
+    resumeJsonNewStore.COMPONENTS.forEach((item) => {
+      if (item.model === modelItem.model) {
+        sum++;
+      }
+    });
+    if (sum > 1) {
+      rightList.value.splice(index, 1);
+    } else {
+      rightList.value[index].show = false;
+    }
   };
   defineExpose({
     leftList,

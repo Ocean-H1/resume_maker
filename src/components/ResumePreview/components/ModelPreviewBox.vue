@@ -33,7 +33,7 @@
       // 如果选中了模块
       if (newVal && modelObj[newVal]) {
         modelObj[newVal].el.scrollIntoView({ behavior: 'smooth', block: 'center' });  //  出现在可视区域
-        modelObj[oldVal].el.style.borderColor = '#7ec97e';
+        modelObj[newVal].el.style.borderColor = '#7ec97e';
       }
     },
     {

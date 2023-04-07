@@ -137,12 +137,12 @@
       classicalDelete();
     } else {
       // 左右两列布局
-      emit('leftRightDelete',props.item);
+      emit('leftRightDelete', props.item);
     }
   };
   // 传统布局删除模块
   const classicalDelete = () => {
-    useDeleteModel(props.item)
+    useDeleteModel(props.item);
   };
 </script>
 

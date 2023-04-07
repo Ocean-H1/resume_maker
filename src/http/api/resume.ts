@@ -67,3 +67,31 @@ export const getTemplateInfoAsync: any = async (id: string) => {
     method: 'get'
   });
 };
+
+// 导出为pdf
+export const getResumePdfAsync: any = (params: any) => {
+  return http.request({
+    url: '/huajian/pdf/getPdf',
+    method: 'get',
+    responseType: 'blob',
+    params: params
+  });
+};
+
+// 导出为png
+export const getPNGAsync: any = (params: any) => {
+  return http.request({
+    url: '/huajian/pdf/getPNG',
+    method: 'get',
+    responseType: 'blob',
+    params: params
+  });
+};
+
+// 增加resume导出次数
+export const addMakeResumeCountAsync: any = () => {
+  return http.request({
+    url: '/huajian/pdf/addMakeResumeCount',
+    method: 'get'
+  });
+};

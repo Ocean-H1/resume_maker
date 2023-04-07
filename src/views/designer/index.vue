@@ -69,19 +69,30 @@
       <div class="config" ref="configRef" :key="refreshUuid"></div>
     </div>
     <!-- 导出pdf进度弹窗 -->
+    <process-bar-dialog
+      :dialog-visible="dialogVisible"
+      :percentage-num="percentage"
+      @cancel="cancelProgress"
+    ></process-bar-dialog>
   </div>
 </template>
 
-<script setup lang="ts"> 
+<script setup lang="ts">
   import appStore from '@/store';
   import DesignNav from './components/DesignNav.vue';
   import { storeToRefs } from 'pinia';
   import IDESIGNJSON from '@/interface/design';
-  import { getResetTemplateInfoAsync, getTemplateInfoAsync } from '@/http/api/resume';
+  import {
+    getResetTemplateInfoAsync,
+    getTemplateInfoAsync,
+    addMakeResumeCountAsync
+  } from '@/http/api/resume';
   import Title from './components/Title.vue';
   import ModelList from './components/ModelList.vue';
   import resumeBackgroundComponents from '@/utils/registerResumeBackgroundCom';
   import custom from '@/template/custom/index.vue';
+  import { exportPNG, exportPdf } from '@/utils/pdf';
+  import printHtml from '@/utils/print';
 
   const route = useRoute();
   const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
@@ -141,18 +152,78 @@
     }
   };
 
-  // 生成要下载的PDF
-  // const dialogVisible = ref<boolean>(false);
-  // const percentage = ref<number>(10); //  导出进度
-  // let timer:any = null;
-  const generateReport = async () => {};
+  // 生成要下载的PDF / PNG
+  const dialogVisible = ref<boolean>(false);
+  const percentage = ref<number>(10); //  导出进度
+  let timer: any = null;
+  const generateReport = async (type: string) => {
+    dialogVisible.value = true;
+    timer = setInterval(() => {
+      percentage.value += 5;
+      if (percentage.value > 95) {
+        percentage.value = 98;
+        clearInterval(timer);
+      }
+    }, 500);
+
+    let token = localStorage.getItem('token') as string;
+    let height = htmlContentPdf.value.style.height;
+    if (type === 'pdf') {
+      await exportPdf(token, id as string, height);
+    } else {
+      await exportPNG(token, id as string, height);
+    }
+    clearInterval(timer);
+    percentage.value = 100;
+  };
 
   // 另存为PDF，新的方法
   const isPrinting = ref<boolean>(false);
-  const generateReportNew = async () => {};
+  const generateReportNew = async () => {
+    addMakeResumeCountAsync(); // 增加pdf导出次数
+    isPrinting.value = true; // 去掉分割线
+    // 重置store选中模块
+    resetSelectModel();
+    await nextTick();
+    const target = document.getElementById('print');
+    if (target) {
+      printHtml(target.innerHTML);
+    }
+    // 打印取消和完成
+    window.onbeforeprint = () => {
+      isPrinting.value = true;
+    };
+    window.onafterprint = () => {
+      isPrinting.value = false;
+    };
+  };
+
+  // 关闭进度弹窗
+  const cancelProgress = () => {
+    dialogVisible.value = false;
+    percentage.value = 10;
+  };
+
+  const { resetSelectModel } = appStore.useSelectMaterialStore;
+  // 全局样式设置
+  const globalStyleSetting = () => {
+    // 重置store中选中的模块
+    resetSelectModel();
+  };
 
   // 重置数据
-  const reset = () => {};
+  const reset = async () => {
+    resetStoreAndLocal(true); //  重置store数据
+    globalStyleSetting(); //  重置选中模块
+    ElMessage({
+      message: '重置成功！',
+      type: 'success',
+      center: true
+    });
+    setUuid(); //  重新渲染左侧列表和右侧属性面板
+    await nextTick();
+    resizeDOM();
+  };
 
   // 放大缩小center
   const sizeCenter = ref<number>(1);
@@ -173,14 +244,14 @@
   // 分割线模块化ref
   const html2Pdf = ref<any>(null);
   let lineRefs: Array<any> = []; // 分割线的ref
-  const setLinesRef = (el: any,index: number) => {
-    if(el) {
-      if(linesNumber.value === index + 1) {
+  const setLinesRef = (el: any, index: number) => {
+    if (el) {
+      if (linesNumber.value === index + 1) {
         el.style.top = linesNumber.value * 1160 + 'px'; //  最后一条分割线出现在底部
       }
-      lineRefs.push(el)
+      lineRefs.push(el);
     }
-  }
+  };
   // 监听内容元素高度变化，绘制分割线
   const htmlContentPdf = ref<any>(null);
   const linesNumber = ref<number>(0);

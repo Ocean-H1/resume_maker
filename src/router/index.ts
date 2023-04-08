@@ -11,8 +11,9 @@ const MyResume = () => import('@/views/person/myResume/index.vue');
 const MyOnlineResume = () => import('@/views/person/onlineResume/index.vue');
 const MyContribute = () => import('@/views/person/myContribute/index.vue');
 const ForgetPassword = () => import('@/views/forgetPassword/index.vue');
-const Designer = () => import('@/views/designer/index.vue')
-const Template = () => import('@/views/template/index.vue')
+const Designer = () => import('@/views/designer/index.vue');
+const Template = () => import('@/views/template/index.vue');
+const Custom = () => import('@/views/custom/index.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -144,6 +145,17 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: false
     },
     component: Template
+  },
+  {
+    path: '/custom',
+    name: 'Custom',
+    meta: {
+      title: '自定义',
+      keepAlive: true,
+      isShowComNav: false,
+      requireLogin: true
+    },
+    component: Custom
   }
 ];
 const router = createRouter({

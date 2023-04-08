@@ -95,3 +95,12 @@ export const addMakeResumeCountAsync: any = () => {
     method: 'get'
   });
 };
+
+// 新增模板
+export const addTemplateAsync: any = (data: any) => {
+  return http.request({
+    url: '/huajian/resume/addTemplate',
+    method: 'post',
+    data: data
+  });
+};

@@ -169,3 +169,8 @@ export const showtime = (post_modified: any) => {
     }
   }
 };
+
+// 获取简历背景小图片资源
+export const getAssetsResumeBgcFile = (url: string) => {
+  return new URL(`../assets/images/resumeBackground/${url}`, import.meta.url).href;
+};

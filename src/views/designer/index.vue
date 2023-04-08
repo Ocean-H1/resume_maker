@@ -66,7 +66,23 @@
         </el-backtop>
       </div>
       <!-- 右侧属性设置面板 -->
-      <div class="config" ref="configRef" :key="refreshUuid"></div>
+      <div class="config" ref="configRef" :key="refreshUuid">
+        <TitleConfig :title="cptTitle" @unfold-or-collapse="unfoldOrCollapseConfig"></TitleConfig>
+        <c-scrollbar
+          trigger="hover"
+          :h-thumb-style="{
+            'background-color': 'rgba(0,0,0,0.4)'
+          }"
+        >
+          <component
+            :is="optionsComponents[appStore.useSelectMaterialStore.cptOptionsName]"
+            v-if="appStore.useSelectMaterialStore.cptName"
+            :key="appStore.useSelectMaterialStore.cptKeyId"
+          ></component>
+          <!-- 全局主题样式设置 -->
+          <GlobalStyleOptionsVue v-else></GlobalStyleOptionsVue>
+        </c-scrollbar>
+      </div>
     </div>
     <!-- 导出pdf进度弹窗 -->
     <process-bar-dialog
@@ -93,8 +109,13 @@
   import custom from '@/template/custom/index.vue';
   import { exportPNG, exportPdf } from '@/utils/pdf';
   import printHtml from '@/utils/print';
+  import TitleConfig from './components/TitleConfig.vue';
+  import optionsComponents from '@/utils/registerMaterialOptionsCom';
+  import GlobalStyleOptionsVue from '@/options/GlobalStyleOptions.vue'; //  全局主体设置
+  import { closeGlobalLoading } from '@/utils/common';
 
   const route = useRoute();
+  const { cptTitle } = storeToRefs(appStore.useSelectMaterialStore);
   const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); // store里的模板数据
   const { id } = route.query; //  模板id
   const { refreshUuid } = storeToRefs(appStore.useRefreshStore);
@@ -275,6 +296,50 @@
     await nextTick();
     resizeDOM();
   };
+
+  // 展开或收起属性面板
+  const configRef = ref<any>(null);
+  const unfoldOrCollapseConfig = (status: boolean) => {
+    if (status) {
+      configRef.value.style.width = '355px';
+      configRef.value.style.flex = 'inherit';
+    } else {
+      configRef.value.style.flex = 1;
+    }
+  };
+
+  // 点击其他区域取消模块选择
+  const initClickListener = () => {
+    window.addEventListener('click', dealClick);
+  };
+  const dealClick = (e: MouseEvent) => {
+    const bool = getTargetNode(htmlContentPdf.value, e.target);
+    if (bool) {
+      globalStyleSetting();
+    }
+  };
+  const getTargetNode = (el: any, target: any): boolean => {
+    if (!el || el === document) return false;
+    return el === target ? true : getTargetNode(el.parentNode, target);
+  };
+  onBeforeUnmount(() => {
+    window.removeEventListener('click', dealClick); //  取消事件监听
+  });
+
+  // 生命周期hooks
+  onMounted(async () => {
+    resizeDOM();
+    initClickListener();
+
+    await nextTick();
+    closeGlobalLoading(); //  关闭全局等待层
+  });
+  onBeforeUnmount(() => {
+    observer?.disconnect();
+  })
+  onBeforeUpdate(() => {
+    lineRefs = []
+  })
 </script>
 
 <style lang="scss">

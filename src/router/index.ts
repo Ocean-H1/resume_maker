@@ -12,6 +12,7 @@ const MyOnlineResume = () => import('@/views/person/onlineResume/index.vue');
 const MyContribute = () => import('@/views/person/myContribute/index.vue');
 const ForgetPassword = () => import('@/views/forgetPassword/index.vue');
 const Designer = () => import('@/views/designer/index.vue')
+const Template = () => import('@/views/template/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -132,6 +133,17 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: true
     },
     component: Designer
+  },
+  {
+    path: '/template',
+    name: 'Template',
+    meta: {
+      title: '模板列表',
+      keepAlive: true,
+      isShowComNav: true,
+      requireLogin: false
+    },
+    component: Template
   }
 ];
 const router = createRouter({

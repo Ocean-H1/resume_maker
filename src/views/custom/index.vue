@@ -9,7 +9,7 @@
       <!-- 中间设计区 -->
       <MainCenter ref="mainCenterRef" :components="MaterialComponents"></MainCenter>
       <!-- 右侧属性面板 -->
-      
+      <MainRight></MainRight>
     </div>
   </div>
 </template>
@@ -18,6 +18,7 @@
   import NavCom from './components/NavCom.vue';
   import MainLeft from './components/MainLeft.vue';
   import MainCenter from './components/MainCenter.vue';
+  import MainRight from './components/MainRight.vue';
   import MaterialComponents from '@/utils/registerMaterialCom'; // 所有物料组件
 
   // 打印为PDF

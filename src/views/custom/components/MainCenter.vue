@@ -1,9 +1,10 @@
 <template>
+  <!-- <c-scrollbar trigger="hover"> -->
   <div class="main-center-box">
     <!-- 设计区域 -->
     <component
-      :is="resumebackgroundName"
-      ref="html2pdf"
+      :is="resumeBackgroundName"
+      ref="html2Pdf"
       @content-height-change="contentHeightChange"
     >
       <div ref="htmlContentPdf" class="content-box">
@@ -19,12 +20,13 @@
           >
             <template #item="{ element }">
               <div class="list-group-item">
-                <ModelBox :components="components" :item="element"></ModelBox>
+                <model-box :components="components" :item="element"></model-box>
               </div>
             </template>
           </draggable>
         </template>
-        <!-- 左右布局 -->
+
+        <!-- 左右两列布局 -->
         <template v-else>
           <div class="left-box">
             <draggable
@@ -37,12 +39,12 @@
             >
               <template #item="{ element }">
                 <div class="list-group-item">
-                  <ModelBox
+                  <model-box
                     :components="components"
                     :item="element"
                     @left-right-delete="leftDelete"
                     @left-right-add="leftAdd"
-                  ></ModelBox>
+                  ></model-box>
                 </div>
               </template>
             </draggable>
@@ -57,16 +59,19 @@
               item-key="id"
             >
               <template #item="{ element }">
-                <ModelBox
-                  :components="components"
-                  :item="element"
-                  @left-right-delete="rightDelete"
-                  @left-right-add="rightAdd"
-                ></ModelBox>
+                <div class="list-group-item">
+                  <model-box
+                    :components="components"
+                    :item="element"
+                    @left-right-delete="rightDelete"
+                    @left-right-add="rightAdd"
+                  ></model-box>
+                </div>
               </template>
             </draggable>
           </div>
         </template>
+
         <!-- 拖拽提示 -->
         <div
           v-if="!resumeJsonNewStore.COMPONENTS.length && resumeJsonNewStore.LAYOUT === 'classical'"
@@ -89,8 +94,8 @@
           </div>
         </template>
       </div>
-      <!-- 布局切换组件-->
-      <ModeSwitch></ModeSwitch>
+      <!-- 布局模式切换组件 -->
+      <mode-switch></mode-switch>
     </component>
   </div>
 </template>
@@ -112,8 +117,8 @@
   defineProps<{
     components: any;
   }>();
-
-  // 生命周期hook
+  
+  // 生命周期函数
   const route = useRoute();
   onMounted(async () => {
     if (route.query.ID) {
@@ -125,11 +130,12 @@
 
   const { resumeJsonNewStore } = storeToRefs(appStore.useResumeJsonNewStore); //  store相关数据
   // 简历背景
-  const resumebackgroundName = computed(() => {
-    resumeJsonNewStore.value.GLOBAL_STYLE.resumeBackgroundCom
+  const resumeBackgroundName = computed(() => {
+    return resumeJsonNewStore.value.GLOBAL_STYLE.resumeBackgroundCom
       ? resumeBackgroundComponents[resumeJsonNewStore.value.GLOBAL_STYLE.resumeBackgroundCom]
       : resumeBackgroundComponents['RESUME_BACKGROUND_DEFAULT'];
   });
+  
 
   // 如果传ID，根据ID查询数据
   const { changeResumeJsonData } = appStore.useResumeJsonNewStore;
@@ -159,7 +165,7 @@
 
   // 分割线
   const linesNumber = ref<number>(1);
-  const html2pdf = ref<any>(null);
+  const html2Pdf = ref<any>(null);
   const linesRef: Array<any> = [];
   const setLinesRef = (el: any, index: number) => {
     if (el) {
@@ -178,13 +184,12 @@
     observer = new ResizeObserver(async (entries: ResizeObserverEntry[]) => {
       for (let entry of entries) {
         height = (entry.target as HTMLElement).offsetHeight;
-        linesNumber.value = Math.ceil(height / 1160);
-        html2pdf.value.$el.style.height = 1160 * linesNumber.value + 'px'; //  整个简历的高度
+        linesNumber.value = Math.ceil(height / 1160); // 有几条分割线
+        html2Pdf.value.$el.style.height = 1160 * linesNumber.value + 'px'; // 整个简历的高度
       }
     });
-    observer.observe(htmlContentPdf.value); //  监听元素
+    observer.observe(htmlContentPdf.value); // 监听元素
   };
-
   // 子组件内容高度发生变化---需要重新计算高度，触发resizeDOM
   const contentHeightChange = async () => {
     await nextTick();
@@ -281,7 +286,7 @@
     linesNumber.value = 0;
     resetSelectModel(); //  重置选中模块
     await nextTick();
-    downloadPDF(html2pdf.value.$el, resumeJsonNewStore.value.TITLE, false, () => {
+    downloadPDF(html2Pdf.value.$el, resumeJsonNewStore.value.TITLE, false, () => {
       linesNumber.value = temp;
     });
   };
@@ -289,6 +294,7 @@
     generateReport
   });
 </script>
+
 
 <style lang="scss" scoped>
   .c-scrollbar {

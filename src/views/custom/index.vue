@@ -7,20 +7,24 @@
       <!-- 左侧物料区 -->
       <MainLeft></MainLeft>
       <!-- 中间设计区 -->
-
+      <MainCenter ref="mainCenterRef" :components="MaterialComponents"></MainCenter>
       <!-- 右侧属性面板 -->
-
+      
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import NavCom from './components/NavCom.vue'
+  import NavCom from './components/NavCom.vue';
   import MainLeft from './components/MainLeft.vue';
+  import MainCenter from './components/MainCenter.vue';
+  import MaterialComponents from '@/utils/registerMaterialCom'; // 所有物料组件
 
+  // 打印为PDF
+  const mainCenterRef = ref<any>(null);
   const generateReport = () => {
-
-  }
+    mainCenterRef.value.generateReport();
+  };
 </script>
 
 <style lang="scss" scoped>

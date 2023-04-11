@@ -35,7 +35,7 @@
     isShowLayer.value = true;
   };
   const mouseleave = () => {
-    isShowLayer.value = true;
+    isShowLayer.value = false;
   };
 
   // 点击查看

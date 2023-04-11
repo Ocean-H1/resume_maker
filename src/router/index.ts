@@ -14,8 +14,11 @@ const ForgetPassword = () => import('@/views/forgetPassword/index.vue');
 const Designer = () => import('@/views/designer/index.vue');
 const Template = () => import('@/views/template/index.vue');
 const Custom = () => import('@/views/custom/index.vue');
-const PdfPreview = () => import('@/views/PdfPreview/index.vue')
-const OnlinePreview = () => import('@/views/onlinePreview/index.vue')
+const PdfPreview = () => import('@/views/PdfPreview/index.vue');
+const OnlinePreview = () => import('@/views/onlinePreview/index.vue');
+
+// 图片在线压缩
+const ImgCompress = () => import('@/views/imgCompress/index.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -180,6 +183,17 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: false
     },
     component: OnlinePreview
+  },
+  {
+    path: '/imgCompress',
+    name: 'ImgCompress',
+    meta: {
+      title: '图片压缩',
+      keepAlive: true,
+      isShowComNav: true,
+      requireLogin: false
+    },
+    component: ImgCompress
   }
 ];
 const router = createRouter({

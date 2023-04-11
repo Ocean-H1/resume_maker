@@ -124,7 +124,7 @@ export const showtime = (post_modified: any) => {
   // 计算 当前时间 和 发布时间 的时间差
   const curTime = new Date();
   const timeDiff = curTime.getTime() - getTs(post_modified);
-  
+
   // 单位换算 -> ms
   const min = 60 * 1000;
   const hour = min * 60;
@@ -173,4 +173,21 @@ export const showtime = (post_modified: any) => {
 // 获取简历背景小图片资源
 export const getAssetsResumeBgcFile = (url: string) => {
   return new URL(`../assets/images/resumeBackground/${url}`, import.meta.url).href;
+};
+
+// 获取文件大小
+export const getFileSize = (fileByte: number) => {
+  const fileSizeByte = fileByte;
+  let fileSizeMsg = '';
+
+  if (fileSizeByte < 1048576) fileSizeMsg = (fileSizeByte / 1024).toFixed(2) + 'KB';
+  else if (fileSizeByte === 1048576) fileSizeMsg = '1MB';
+  else if (fileSizeByte > 1048576 && fileSizeByte < 1073741824)
+    fileSizeMsg = (fileSizeByte / (1024 * 1024)).toFixed(2) + 'MB';
+  else if (fileSizeByte > 1048576 && fileSizeByte == 1073741824) fileSizeMsg = '1GB';
+  else if (fileSizeByte > 1073741824 && fileSizeByte < 1099511627776)
+    fileSizeMsg = (fileSizeByte / (1024 * 1024 * 1024)).toFixed(2) + 'GB';
+  else fileSizeMsg = '文件大小超过1TB';
+
+  return fileSizeMsg;
 };

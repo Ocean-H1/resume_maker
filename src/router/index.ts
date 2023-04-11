@@ -14,6 +14,8 @@ const ForgetPassword = () => import('@/views/forgetPassword/index.vue');
 const Designer = () => import('@/views/designer/index.vue');
 const Template = () => import('@/views/template/index.vue');
 const Custom = () => import('@/views/custom/index.vue');
+const PdfPreview = () => import('@/views/PdfPreview/index.vue')
+const OnlinePreview = () => import('@/views/onlinePreview/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -156,6 +158,28 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: true
     },
     component: Custom
+  },
+  {
+    path: '/pdfPreview',
+    name: 'PdfPreview',
+    meta: {
+      title: '简历预览页',
+      keepAlive: false,
+      isShowComNav: false,
+      requireLogin: false
+    },
+    component: PdfPreview
+  },
+  {
+    path: '/online/:id',
+    name: 'OnlinePreview',
+    meta: {
+      title: '在线简历',
+      keepAlive: false,
+      isShowComNav: false,
+      requireLogin: false
+    },
+    component: OnlinePreview
   }
 ];
 const router = createRouter({

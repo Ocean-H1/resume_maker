@@ -16,11 +16,27 @@ export const getWordTemplateTagsListAsync: any = () => {
   });
 };
 
-// 查询word模板列表，不查询详细信息
+// 查询word模板列表(不查询详细信息)
 export const getWordTemplateListAsync: any = (params: any) => {
   return http.request({
     url: '/huajian/common/getWordTemplateList',
     method: 'get',
     params: params
+  });
+};
+
+// 查询单个模板的详细信息
+export const getWordTemplateInfoAsync: any = (id: string) => {
+  return http.request({
+    url: `/huajian/common/getWordTemplateInfo/${id}`,
+    method: 'get'
+  });
+};
+
+// 获取word模板下载链接
+export const wordDownloadUrl: any = (id: string) => {
+  return http.request({
+    url: `/huajian/wordTemplate/wordDownloadUrl/${id}`,
+    method: 'get'
   });
 };

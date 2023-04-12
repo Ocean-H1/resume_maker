@@ -17,6 +17,7 @@ const Custom = () => import('@/views/custom/index.vue');
 const PdfPreview = () => import('@/views/PdfPreview/index.vue');
 const OnlinePreview = () => import('@/views/onlinePreview/index.vue');
 const Word = () => import('@/views/word/index.vue');
+const WordPreview = () => import('@/views/wordPreview/index.vue');
 
 // 图片在线压缩
 const ImgCompress = () => import('@/views/imgCompress/index.vue');
@@ -206,6 +207,17 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: false
     },
     component: Word
+  },
+  {
+    path: '/wordPreview',
+    name: 'WordPreview',
+    meta: {
+      title: 'word模板详情',
+      keepAlive: true,
+      isShowComNav: true,
+      requireLogin: false
+    },
+    component: WordPreview
   }
 ];
 const router = createRouter({

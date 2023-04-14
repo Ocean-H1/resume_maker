@@ -24,3 +24,19 @@ export const getPPTTemplateListAsync: any = (params: any) => {
     params: params
   });
 };
+
+// 查询单个PPT模板详细信息
+export const getPPTTemplateInfoAsync: any = (id: string) => {
+  return http.request({
+    url: `/huajian/common/getPPTTemplateInfo/${id}`,
+    method: 'get'
+  });
+};
+
+// 获得PPT模板下载链接
+export const pptDownloadUrl: any = (id: string) => {
+  return http.request({
+    url: `/huajian/pptTemplate/pptDownloadUrl/${id}`,
+    method: 'get'
+  });
+};

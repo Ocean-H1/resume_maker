@@ -19,6 +19,7 @@ const OnlinePreview = () => import('@/views/onlinePreview/index.vue');
 const Word = () => import('@/views/word/index.vue');
 const WordPreview = () => import('@/views/wordPreview/index.vue');
 const PPT = () => import('@/views/ppt/index.vue');
+const PPTPreview = () => import(`@/views/pptPreview/index.vue`);
 
 // 图片在线压缩
 const ImgCompress = () => import('@/views/imgCompress/index.vue');
@@ -230,6 +231,17 @@ const routes: Array<RouteRecordRaw> = [
       requireLogin: false
     },
     component: PPT
+  },
+  {
+    path: '/pptPreview',
+    name: 'PPTPreview',
+    meta: {
+      title: 'ppt模板详情',
+      keepAlive: true,
+      isShowComNav: true,
+      requireLogin: false
+    },
+    component: PPTPreview
   }
 ];
 const router = createRouter({

@@ -14,7 +14,7 @@
               <p>备注: 商务合作</p>
             </div>
             <div class="vx-img">
-              <img src="@/assets/images/vx.jpg" class="bgc-img" alt="" />
+              <img src="@/assets/images/vx.png" class="bgc-img" alt="" />
             </div>
           </div>
         </el-popover>
@@ -23,10 +23,10 @@
       <li>
         <svg-icon icon-name="icon-bilibili-copy" class-name="bilibili"></svg-icon>
         <a
-          href="https://space.bilibili.com/382688944?spm_id_from=333.999.0.0"
+          href="https://oceanh.top"
           target="_blank"
           rel="noopener noreferrer"
-          >OceanH</a
+          >OceanH的博客</a
         >
       </li>
       <div class="lines"></div>

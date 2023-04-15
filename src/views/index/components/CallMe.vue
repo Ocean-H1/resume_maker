@@ -1,23 +1,6 @@
 <template>
   <div class="call-me-box">
-    <el-popover :width="200" trigger="hover" placement="left" teleported>
-      <template #reference>
-        <span class="contact-me">
-          <svg-icon icon-name="icon-qunzuduoren" color="#fff" size="20px"></svg-icon>
-        </span>
-      </template>
-      <!-- 内容区域 -->
-      <div class="vx-box">
-        <div class="vx-title">
-          <h1>进入微信群</h1>
-          <p>进入交流群，迅速解答疑问！</p>
-        </div>
-        <div class="vx-img">
-          <img class="bgc-img" src="@/assets/images/vx-qun.jpg" alt="" />
-        </div>
-      </div>
-    </el-popover>
-
+    <!-- 微信 -->
     <el-popover :width="200" trigger="hover" placement="left" teleported>
       <template #reference>
         <span class="contact-me">
@@ -28,27 +11,28 @@
       <div class="vx-box">
         <div class="vx-title">
           <h1>添加微信</h1>
-          <p>进入交流群，迅速解答疑问！</p>
+          <p>如有问题，欢迎一起交流学习! </p>
         </div>
         <div class="vx-img">
-          <img class="bgc-img" src="@/assets/images/vx.jpg" alt="" />
+          <img class="bgc-img" src="@/assets/images/vx.png" alt="" />
         </div>
       </div>
     </el-popover>
-
+    <!-- Gitee-->
     <el-tooltip class="box-item" effect="light" content="gitee" placement="left">
       <a
         class="contact-me"
-        href="https://gitee.com/sharemore52/resume-design"
+        href="https://gitee.com/Ocean0128"
         target="_blank"
         rel="noopener noreferrer"
       >
         <svg-icon icon-name="icon-gitee-fill-round" color="#fff" size="20px"></svg-icon>
       </a>
     </el-tooltip>
+    <!-- 问题反馈 -->
     <el-tooltip class="box-item" effect="light" content="问题或建议反馈" placement="left">
       <a
-        href="https://github.com/huajian-pro/resume-design/issues"
+        href="https://github.com/Ocean-H1/resume_maker/issues"
         target="_blank"
         rel="noopener noreferrer"
         class="contact-me"

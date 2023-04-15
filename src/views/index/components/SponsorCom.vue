@@ -38,10 +38,10 @@
       <c-scrollbar trigger="hover" style="height: 500px">
         <div class="dialog-content-box">
           <div class="left">
-            <img class="vx" src="../../../assets/images/vx-pay1.jpg" alt="" />
-            <img class="vx" src="../../../assets/images/vx-pay2.jpg" alt="" />
-            <img class="vx" src="../../../assets/images/vx-pay3.jpg" alt="" />
-            <img class="zfb" src="../../../assets/images/vx-pay4.jpg" alt="" />
+            <img class="vx" src="../../../assets/images/vx-pay1.png" alt="" />
+            <img class="vx" src="../../../assets/images/vx-pay2.png" alt="" />
+            <img class="vx" src="../../../assets/images/zfb-pay1.jpg" alt="" />
+            <img class="zfb" src="../../../assets/images/zfb-pay2.jpg" alt="" />
           </div>
           <div class="right">
             <!-- 表单 -->

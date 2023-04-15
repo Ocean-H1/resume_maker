@@ -7,7 +7,7 @@
     ></logo-com>
     <div class="center">
       <el-menu
-        :default-active="route.name"
+        :default-active="route.name as string"
         class="el-menu-demo"
         mode="horizontal"
         :ellipsis="false"
@@ -144,27 +144,6 @@
           title: '图片压缩',
           children: null,
           path: '/imgCompress'
-        }
-      ]
-    },
-    {
-      iconfont: '',
-      name: 'WebCode',
-      title: '私有部署',
-      children: [
-        {
-          iconfont: '',
-          name: 'WebCode',
-          title: '源码获取',
-          children: null,
-          path: '/webcode'
-        },
-        {
-          iconfont: '',
-          name: 'DeployDoc',
-          title: '知识库',
-          children: null,
-          path: '/deployDoc'
         }
       ]
     }

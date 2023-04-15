@@ -94,7 +94,7 @@ git clone https://github.com/Ocean-H1/resume_maker.git
 
 ### 安装项目依赖
 ```bash
-cd resume-design
+cd resume-maker
 
 // 使用pnpm安装依赖（推荐）
 pnpm install

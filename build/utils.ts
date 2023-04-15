@@ -4,7 +4,7 @@
  * @param {string} mode
  * @return {*}  {boolean}
  */
- export function isDevFn(mode: string): boolean {
+export function isDevFn(mode: string): boolean {
   return mode === 'development';
 }
 

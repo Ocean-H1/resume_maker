@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "vite",
     "build:dev": "vue-tsc --noEmit && vite build --mode development",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "preview:dev": "npm run build:dev && vite preview",
     "preview": "npm run build && vite preview",
-    "preview:dist": "vite preview"
+    "preview:dist": "vite preview",
+    "fix-memory-limit":"cross-env LIMIT=4096 increase-memory-limit"
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.0.2",
@@ -59,6 +60,7 @@
     "codemirror": "6.x",
     "commitizen": "^4.2.4",
     "commitlint-config-cz": "^0.13.3",
+    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^6.3.0",
     "eslint": "^8.12.0",
@@ -66,6 +68,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.5.0",
     "husky": "^7.0.4",
+    "increase-memory-limit": "^1.0.7",
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.1",
     "sass": "^1.53.0",

@@ -1,15 +1,15 @@
-import { ProxyOptions } from "vite";
+import { ProxyOptions } from 'vite';
 
 /**
  * Generate proxy
  * @param list
  */
-export function createProxy():Record<string,string | ProxyOptions> {
+export function createProxy(): Record<string, string | ProxyOptions> {
   return {
     '/api': {
       target: 'your https address',
       changeOrigin: true,
-      rewrite: (path:string) => path.replace(/^\/api/, '')
+      rewrite: (path: string) => path.replace(/^\/api/, '')
     }
-  }
+  };
 }

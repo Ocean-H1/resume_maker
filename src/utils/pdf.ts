@@ -1,6 +1,6 @@
 import appStore from '@/store/index';
 import { getPNGAsync, getResumePdfAsync } from '@/http/api/resume';
-import CONFIG from '@/config/index'
+import CONFIG from '@/config/index';
 
 // 生成pdf
 export const exportPdf = async (token?: string, id?: string, height?: string) => {
@@ -16,7 +16,7 @@ export const exportPdf = async (token?: string, id?: string, height?: string) =>
   };
   const pdfData = await getResumePdfAsync(params);
   if (pdfData.status) {
-    ElMessage.error('网络过慢，请求超时，请尝试重新导出');
+    ElMessage.warning('下载失败，请尝试重新导出');
     return;
   } else {
     const blob = new Blob([pdfData], { type: 'application/pdf' });
@@ -41,7 +41,7 @@ export const exportPNG = async (token?: string, id?: string, height?: string) =>
   };
   const pngData = await getPNGAsync(params);
   if (pngData.status) {
-    ElMessage.error('网络过慢，请求超时，请尝试重新导出');
+    ElMessage.warning('下载失败，请尝试重新导出');
     return;
   } else {
     const blob = new Blob([pngData], { type: 'application/image' });

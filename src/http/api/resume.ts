@@ -77,7 +77,14 @@ export const getResumePdfAsync: any = (params: any) => {
     params: params
   });
 };
-
+// 取消导出 pdf / png
+export const cancelDownload: any = (type: string) => {
+  if(type === 'pdf'){
+    http.cancelRequest('/huajian/pdf/getPdf')
+  }else if(type === 'img'){
+    http.cancelRequest('/huajian/pdf/getPNG')
+  }
+}
 // 导出为png
 export const getPNGAsync: any = (params: any) => {
   return http.request({

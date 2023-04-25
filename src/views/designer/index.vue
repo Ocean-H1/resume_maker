@@ -101,7 +101,8 @@
   import {
     getResetTemplateInfoAsync,
     getTemplateInfoAsync,
-    addMakeResumeCountAsync
+    addMakeResumeCountAsync,
+    cancelDownload
   } from '@/http/api/resume';
   import Title from './components/Title.vue';
   import ModelList from './components/ModelList.vue';
@@ -177,7 +178,9 @@
   const dialogVisible = ref<boolean>(false);
   const percentage = ref<number>(10); //  导出进度
   let timer: any = null;
+  let generateType = ''
   const generateReport = async (type: string) => {
+    generateType = type
     dialogVisible.value = true;
     timer = setInterval(() => {
       percentage.value += 5;
@@ -186,7 +189,6 @@
         clearInterval(timer);
       }
     }, 500);
-
     let token = localStorage.getItem('token') as string;
     let height = htmlContentPdf.value.style.height;
     if (type === 'pdf') {
@@ -221,6 +223,8 @@
 
   // 关闭进度弹窗
   const cancelProgress = () => {
+    // 取消导出
+    cancelDownload(generateType);
     dialogVisible.value = false;
     percentage.value = 10;
   };
@@ -336,10 +340,10 @@
   });
   onBeforeUnmount(() => {
     observer?.disconnect();
-  })
+  });
   onBeforeUpdate(() => {
-    lineRefs = []
-  })
+    lineRefs = [];
+  });
 </script>
 
 <style lang="scss">
